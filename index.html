@@ -14,10 +14,12 @@
 <body onload="startGame()">
     <script>
         var myGamePiece;
+        var myObstacle;
 
         function startGame() {
             myGameArea.start();
             myGamePiece = new component(30, 30, "red", 10, 120);
+            myObstacle = new component(10, 200, "green", 300, 120)
         }
 
         var myGameArea = {
@@ -25,7 +27,7 @@
             start : function() {
                 this.canvas.width = 480;
                 this.canvas.height = 270;
-                //this.canvas.style.cursor = "none";
+                this.canvas.style.cursor = "none";
                 this.context = this.canvas.getContext("2d");
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.interval = setInterval(updateGameArea, 20);
@@ -35,10 +37,14 @@
                 window.addEventListener('keyup', function (e) {
                     myGameArea.key = false;
                 })
-                /*window.addEventListener('mousemove', function (e) {
+                window.addEventListener('mousemove', function (e) {
                     myGameArea.x = e.pageX;
                     myGameArea.y = e.pageY;
-                })*/
+                })
+                window.addEventListener('touchmove', function (e) {
+                    myGameArea.x = e.touches[0].screenX;
+                    myGameArea.y = e.touches[0].screenY;
+                })
             },
             clear : function() {
                 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -65,16 +71,18 @@
 
         function updateGameArea() {
             myGameArea.clear();
+            myObstacle.x += 1;
+            myObstacle.update();
             myGamePiece.speedX = 0;
             myGamePiece.speedY = 0;
             if(myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1;}
             if(myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1;}
             if(myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1;}
             if(myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1;}
-            /*if(myGameArea.x && myGameArea.y) {
+            if(myGameArea.x && myGameArea.y) {
                 myGamePiece.x = myGameArea.x;
                 myGamePiece.y = myGameArea.y;
-            }*/
+            }
             myGamePiece.newPos();
             myGamePiece.update();
         }
