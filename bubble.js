@@ -55,7 +55,7 @@ const handlerDrawCircle = (event) => {
     }
 }
 
-constanimate = () => {
+const animate = () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     particleArray.forEach((particle) => {
