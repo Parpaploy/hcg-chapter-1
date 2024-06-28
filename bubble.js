@@ -22,7 +22,7 @@ class Particle {
         context.strokeStyle = 'hsl(${this.hue} 100% 50%)';
         context.stroke;
 
-        const gradient = context.createRadient(
+        const gradient = context.createRadialGradient(
             this.x,
             this.y,
             1,
