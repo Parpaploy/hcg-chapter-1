@@ -29,6 +29,8 @@ class Game {
             context: this.context,
             x: Math.random() * this.canvas.width,
             y: Math.random() * this.canvas.height,
+            width: this.spriteImage.width,
+            height: this.spriteImage.height,
             image: this.spriteImage,
             states: [ { mode:"spawn", duration:0.5 }, { mode:"static", duration:1.5}, { mode:"die", duration:0.8 } ]
         });
