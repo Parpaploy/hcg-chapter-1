@@ -43,7 +43,7 @@ class Game {
         var xobj = new XMLHttpRequest();
             xobj.overrideMimeType("application/json");
             // Replace 'my_data' with the path to your filr
-            xobj.open('GET', json + 'json', true);
+            xobj.open('GET', json + '.json', true);
         const game = this;
         xobj.onreadystatechange = function() {
             if(xobj.readyState == 4 && xobj.status == "200") {
