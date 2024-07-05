@@ -1,11 +1,15 @@
 class Sprite {
     constructor(options) {
         this.context = options.context;
-        this.width = options.width;
-        this.height = options.height;
         this.image = options.image;
+        this.index = options.index;
+        this.frame = options.frame;
+        //this.width = options.width;
+        //this.height = options.height;
+        //this.image = options.image;
         this.x = options.x;
         this.y = options.y;
+        this.anchor = (options.anchor==null) ? { x:0.5, y:0.5 } : options.anchor;
         this.states = options.states;
         this.state = 0;
         this.scale = (options.scale==null) ? 1.0 : options.scale;
@@ -21,17 +25,26 @@ class Sprite {
         //console.log(this.render)
         this.context.drawImage(
             this.image,
-            0,
-            0,
-            this.width,
-            this.height,
-            this.x,
-            this.y,
-            this.width * this.scale,
-            this.height * this.scale
+            this.frame.x,
+            this.frame.y,
+            this.frame.w,
+            this.frame.h,
+            this.x - this.frame.w * this.scale * this.anchor.x,
+            this.y - this.frame.h * this.scale * this.anchor.y,
+            this.frame.w * this.scale,
+            this.frame.h * this.scale
+            // 0,
+            // 0,
+            // this.width,
+            // this.height,
+            // this.x - this.width * this.scale * this.anchor.x,
+            // this.y - this.height * this.scale * this.anchor.y,
+            // this.width * this.scale,
+            // this.height * this.scale
         );
         this.context.globalAlpha = alpha;
     }
+
     set state(index){
         this.stateIndex = index;
         this.stateTime = 0;
@@ -44,6 +57,7 @@ class Sprite {
 
         return result;
     }
+
     update(dt){
         this.stateTime += dt;
         const state = this.state;
@@ -69,6 +83,22 @@ class Sprite {
                 this.opacity = 1.0 - delta;
                 if(this.opacity < 0) this.opacity = 0;
                 break;
+        }
+    }
+
+    hitTest(pt) {
+        const centre = { x: this.x, y: this.y };
+        const radius = (this.frame.w * this.scale) / 2;
+        //Now test if the pt is in the circle
+        const dist = distanceBetweenPoints(pt, centre);
+
+        return (dist < radius);
+
+        function distanceBetweenPoints(a, b) {
+            var x = a.x - b.x;
+            var y = a.y - b.y;
+
+            return Math.sqrt(x * x + y * y);
         }
     }
 }
