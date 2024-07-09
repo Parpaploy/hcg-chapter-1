@@ -5,6 +5,7 @@
     <title>Document</title>
     <script src="game.js"></script>
     <script src="sprite.js"></script>
+    <script src="SFX.js"></script>
     
 </head>
 <body>
@@ -14,5 +15,36 @@
             const game = new Game();
         })
     </script>
+
+    <style>
+        html, body{
+            font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
+            font-size: 12px;
+        }
+        button{
+            background: aquamarine;
+            color: #000000;
+            padding: 10px 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        #controls{
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            position: absolute;
+            width: 300px;
+            left: 0px;
+            top: 0px;
+            border: 1px solid #000000;
+            margin: 30px;
+            padding: 30px;
+            background: #777;
+        }
+    </style>
+
+    <div id="controls">
+        <button id="playSndBtn">Play Sound</button>
+    </div>
 </body>
 </html>
